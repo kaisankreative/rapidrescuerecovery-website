@@ -1,0 +1,29 @@
+# Netlify config. No build step: Netlify publishes the /site folder as-is.
+[build]
+  publish = "site"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(self), camera=(), microphone=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Send www to the bare domain
+[[redirects]]
+  from = "https://www.rapidrescuerecovery.co.uk/*"
+  to = "https://rapidrescuerecovery.co.uk/:splat"
+  status = 301
+  force = true
